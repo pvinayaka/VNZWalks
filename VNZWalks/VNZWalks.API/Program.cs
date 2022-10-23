@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using VNZWalks.API.Data;
+using VNZWalks.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,10 @@ builder.Services.AddDbContext<VNZWalksDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("VNZWalks"));
 });
+
+builder.Services.AddScoped<IRegionRepository, RegionRepository>();
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
 
